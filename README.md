@@ -71,6 +71,19 @@ ret: 0xffffffffffffffff
 # 产物: build_ios/libGumTrace.dylib
 ```
 
+### GitHub Actions 构建 iOS
+
+仓库已提供 [`.github/workflows/ios.yml`](.github/workflows/ios.yml)，会在 `push` 到 `main/master`、提交 `pull request`，以及手动触发 `workflow_dispatch` 时执行 iOS 构建。
+
+```bash
+# 本地提交后推送即可触发
+git add .github/workflows/ios.yml README.md
+git commit -m "Add iOS GitHub Actions workflow"
+git push
+```
+
+构建完成后，可在 GitHub Actions 页面下载 `GumTrace-ios` artifact，其中包含 `build_ios/` 目录下的产物。
+
 ### 构建污点分析工具
 
 ```bash
@@ -299,4 +312,3 @@ GumTrace 内置了对常见库函数参数的自动解析：
 - 跳过原子指令（LSE、独占加载/存储）以避免 Stalker 插桩导致的死锁
 - 使用 10MB 内存缓冲区减少文件 I/O 次数，提升追踪性能
 - 污点分析工具采用零分配解析设计，可高效处理 GB 级日志文件
-
